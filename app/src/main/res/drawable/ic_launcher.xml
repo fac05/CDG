@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="#1B6E53" android:pathData="M0,0h108v108h-108z" />
+    <!-- Hormiga estilizada: tres segmentos -->
+    <path android:fillColor="#FFFFFF" android:pathData="M32,54m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0" />
+    <path android:fillColor="#FFFFFF" android:pathData="M52,54m-11,0a11,11 0,1 1,22 0a11,11 0,1 1,-22 0" />
+    <path android:fillColor="#FFFFFF" android:pathData="M76,54m-13,0a13,9 0,1 1,26 0a13,9 0,1 1,-26 0" />
+    <path android:strokeColor="#FFFFFF" android:strokeWidth="3" android:pathData="M45,45L38,32M52,43L52,30M59,45L66,32M45,63L38,76M52,65L52,78M59,63L66,76M26,48L18,40" />
+</vector>
