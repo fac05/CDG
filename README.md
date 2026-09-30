@@ -26,7 +26,7 @@ cuando hay una versión nueva y la instala con un toque:
 2. Como el repo es privado, Obtainium necesita un token de GitHub de solo lectura:
    - En GitHub: [Settings → Developer settings → Fine-grained tokens → Generate new token](https://github.com/settings/personal-access-tokens/new).
    - *Repository access*: **Only select repositories** → `fac05/CDG`.
-   - *Permissions → Repository permissions → Contents*: **Read-only**.
+   - *Permissions* → **+ Add permissions** → **Contents** → nivel **Read-only**.
    - En Obtainium: **Ajustes** → sección **GitHub** → pegá el token en *GitHub Personal Access Token*.
 3. En Obtainium: **Agregar app** → pegá `https://github.com/fac05/CDG` → **Agregar** → **Instalar**.
 4. Si Play Protect bloquea la instalación ("accede a información sensible"): Play Store → tu foto →
