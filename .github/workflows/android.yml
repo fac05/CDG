@@ -5,9 +5,16 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VERSION_CODE: ${{ github.run_number }}
+      # Solo se publica un Release desde main.
+      PUBLISH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -21,10 +28,41 @@ jobs:
       - name: Tests del núcleo
         run: ./gradlew :core:test
 
+      - name: Preparar clave de firma
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+          elif [ "$PUBLISH" = "true" ]; then
+            # Publicar sin la clave fija rompería las actualizaciones en el teléfono.
+            echo "::error::Falta el secret KEYSTORE_BASE64: no se puede publicar el Release."
+            exit 1
+          else
+            echo "::warning::Sin KEYSTORE_BASE64: el APK se firma con una clave temporal."
+          fi
+
       - name: Compilar APK
-        run: ./gradlew :app:assembleRelease
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          ./gradlew :app:assembleRelease
+          mv app/build/outputs/apk/release/*.apk "mis-gastos-0.1.$VERSION_CODE.apk"
 
       - uses: actions/upload-artifact@v4
         with:
           name: mis-gastos-apk
-          path: app/build/outputs/apk/release/*.apk
+          path: mis-gastos-*.apk
+
+      - name: Publicar Release
+        if: env.PUBLISH == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.1.${{ github.run_number }}
+          name: Mis Gastos 0.1.${{ github.run_number }}
+          body: ${{ github.event.head_commit.message }}
+          files: mis-gastos-*.apk
+          make_latest: true
