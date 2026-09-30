@@ -23,13 +23,18 @@ La forma recomendada de instalarla es con **[Obtainium](https://github.com/Imran
 cuando hay una versión nueva y la instala con un toque:
 
 1. Instalá Obtainium (desde su página de Releases o F-Droid).
-2. En Obtainium: **Agregar app** → pegá `https://github.com/fac05/CDG` → **Agregar** → **Instalar**.
-3. Si Play Protect bloquea la instalación ("accede a información sensible"): Play Store → tu foto →
+2. Como el repo es privado, Obtainium necesita un token de GitHub de solo lectura:
+   - En GitHub: [Settings → Developer settings → Fine-grained tokens → Generate new token](https://github.com/settings/personal-access-tokens/new).
+   - *Repository access*: **Only select repositories** → `fac05/CDG`.
+   - *Permissions → Repository permissions → Contents*: **Read-only**.
+   - En Obtainium: **Ajustes** → sección **GitHub** → pegá el token en *GitHub Personal Access Token*.
+3. En Obtainium: **Agregar app** → pegá `https://github.com/fac05/CDG` → **Agregar** → **Instalar**.
+4. Si Play Protect bloquea la instalación ("accede a información sensible"): Play Store → tu foto →
    **Play Protect** → ⚙️ → apagá *Analizar apps con Play Protect*, instalá, y volvé a prenderlo.
-4. Abrí *Mis Gastos* → **Habilitar** → activala en "Acceso a notificaciones".
+5. Abrí *Mis Gastos* → **Habilitar** → activala en "Acceso a notificaciones".
    Si dice *"por seguridad, esta configuración no está disponible"*: Ajustes → Apps → Mis Gastos →
    **⋮** → **Permitir configuración restringida**, y volvé a activarla.
-5. Recomendado: Ajustes → Apps → Mis Gastos → Batería → *Sin restricciones*, así Android no la cierra.
+6. Recomendado: Ajustes → Apps → Mis Gastos → Batería → *Sin restricciones*, así Android no la cierra.
 
 Las actualizaciones se instalan encima y conservan tus datos y permisos.
 
