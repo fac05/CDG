@@ -16,15 +16,30 @@ App Android para controlar tus gastos **sin cargar nada a mano**: lee las notifi
 - **Carga manual** para gastos en efectivo, y **exportación a CSV**.
 - **Privacidad**: todo se guarda en el teléfono. La app no tiene permiso de Internet.
 
-## Cómo instalarla
+## Cómo instalarla (y recibir actualizaciones)
 
-1. Descargá el APK desde la pestaña **Actions** del repo (último build → artefacto `mis-gastos-apk`),
-   o compilalo con Android Studio (`./gradlew :app:assembleRelease`).
-2. Instalalo en el celular (Android 8 o superior; hay que permitir "instalar apps desconocidas").
-3. Abrí la app y tocá **Habilitar** → activá *Mis Gastos* en "Acceso a notificaciones".
-4. Recomendado: en Ajustes de Android, quitá la optimización de batería para *Mis Gastos*, así el sistema no la cierra.
+Cada merge a `main` compila la app y publica el APK en **[Releases](https://github.com/fac05/CDG/releases)**.
+La forma recomendada de instalarla es con **[Obtainium](https://github.com/ImranR98/Obtainium)**, que avisa
+cuando hay una versión nueva y la instala con un toque:
+
+1. Instalá Obtainium (desde su página de Releases o F-Droid).
+2. En Obtainium: **Agregar app** → pegá `https://github.com/fac05/CDG` → **Agregar** → **Instalar**.
+3. Si Play Protect bloquea la instalación ("accede a información sensible"): Play Store → tu foto →
+   **Play Protect** → ⚙️ → apagá *Analizar apps con Play Protect*, instalá, y volvé a prenderlo.
+4. Abrí *Mis Gastos* → **Habilitar** → activala en "Acceso a notificaciones".
+   Si dice *"por seguridad, esta configuración no está disponible"*: Ajustes → Apps → Mis Gastos →
+   **⋮** → **Permitir configuración restringida**, y volvé a activarla.
+5. Recomendado: Ajustes → Apps → Mis Gastos → Batería → *Sin restricciones*, así Android no la cierra.
+
+Las actualizaciones se instalan encima y conservan tus datos y permisos.
 
 > Las notificaciones de Brubank y Cocos tienen que estar activadas en sus apps.
+
+### Firma del APK
+
+Todas las versiones se firman con la misma clave, guardada en los *secrets* del repo
+(`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`). **Guardá una copia de la clave**:
+si se pierde, las versiones nuevas no se pueden instalar encima y hay que desinstalar (perdiendo los datos).
 
 ## Si una notificación no se reconoce
 

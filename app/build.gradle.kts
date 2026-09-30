@@ -14,15 +14,31 @@ android {
         applicationId = "ar.cdg.gastos"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        // En CI crece con cada build (Android solo acepta actualizaciones con versionCode mayor).
+        val build = System.getenv("VERSION_CODE")?.toIntOrNull() ?: 1
+        versionCode = build
+        versionName = "0.1.$build"
+    }
+
+    // Clave fija para que cada versión nueva se pueda instalar encima de la anterior.
+    // Viene de los secrets del repo (ver .github/workflows/android.yml); nunca se sube al código.
+    val keystorePath = System.getenv("KEYSTORE_FILE")
+    signingConfigs {
+        if (keystorePath != null) {
+            create("release") {
+                storeFile = file(keystorePath)
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            // Firmado con la clave de debug para poder instalarlo directo desde el APK.
-            signingConfig = signingConfigs.getByName("debug")
+            // Sin clave (compilando en local) se firma con la de debug para poder probarlo igual.
+            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
         }
     }
 
